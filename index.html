@@ -1,0 +1,608 @@
+<title>Fiesto Roblox Scripter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#F1EEEC;
+    --surface:#FFFFFF;
+    --ink:#1A1617;
+    --ink-2:#4A4244;
+    --muted:#7C7274;
+    --line:#DDD6D3;
+    --line-strong:#C2B8B4;
+    --accent:#BE3126;
+    --accent-wash:#F8E8E5;
+    --ok:#2C6B4C;
+    --ok-wash:#E3F0E9;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#141011;
+      --surface:#1D1819;
+      --ink:#F1EBE9;
+      --ink-2:#C6BBB8;
+      --muted:#968B8D;
+      --line:#2D2627;
+      --line-strong:#3E3435;
+      --accent:#E8594B;
+      --accent-wash:#2B1B1A;
+      --ok:#74C49B;
+      --ok-wash:#18251F;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#141011;
+    --surface:#1D1819;
+    --ink:#F1EBE9;
+    --ink-2:#C6BBB8;
+    --muted:#968B8D;
+    --line:#2D2627;
+    --line-strong:#3E3435;
+    --accent:#E8594B;
+    --accent-wash:#2B1B1A;
+    --ok:#74C49B;
+    --ok-wash:#18251F;
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:48px 64px;
+    display:flex;
+    flex-direction:column;
+    gap:56px;
+  }
+
+  h1,h2,h3{
+    font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+    text-wrap:balance;
+    margin:0;
+    letter-spacing:-0.02em;
+  }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+  h1{
+    font-size:clamp(38px,9vw,60px);
+    font-weight:800;
+    line-height:1.02;
+    margin-bottom:16px;
+  }
+  .lede{
+    font-size:clamp(17px,2.6vw,19px);
+    color:var(--ink-2);
+    max-width:58ch;
+    margin:0 0 24px;
+  }
+  .status{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:12.5px;
+    font-weight:500;
+    letter-spacing:0.04em;
+    padding:7px 13px;
+    border-radius:999px;
+    background:var(--ok-wash);
+    color:var(--ok);
+    border:1px solid color-mix(in srgb,var(--ok) 30%,transparent);
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none;}
+
+  /* ---------- section shell ---------- */
+  section{display:flex;flex-direction:column;gap:20px;}
+  h2{
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    color:var(--muted);
+    padding-bottom:12px;
+    border-bottom:1px solid var(--line);
+  }
+
+  /* ---------- skill list ---------- */
+  .skills{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px 32px;
+    margin:0;padding:0;list-style:none;
+  }
+  .skills li{
+    display:grid;
+    grid-template-columns:16px 1fr;
+    gap:10px;
+    font-size:15.5px;
+    color:var(--ink-2);
+    padding-block:3px;
+  }
+  .skills .tick{color:var(--accent);font-weight:700;line-height:1.6;}
+  @media (max-width:560px){ .skills{grid-template-columns:1fr;} }
+
+  /* ---------- showcase ---------- */
+  .showcase{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+  }
+  @media (max-width:560px){ .showcase{grid-template-columns:1fr;} }
+
+  .system{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:18px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .system h3{font-size:18px;font-weight:700;}
+  .system p{margin:0;color:var(--ink-2);font-size:15px;}
+  .system p:empty{display:none;}
+
+  .media{
+    position:relative;
+    width:100%;
+    max-width:100%;
+    aspect-ratio:16/9;
+    background:var(--line);
+    border:1px solid var(--line-strong);
+    border-radius:3px;
+    overflow:hidden;
+    cursor:zoom-in;
+  }
+  .media::after{
+    content:"\2922";
+    position:absolute;
+    top:7px;right:7px;
+    width:24px;height:24px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;
+    color:#fff;
+    background:rgba(12,10,10,0.6);
+    border-radius:3px;
+    pointer-events:none;
+  }
+  .media:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .media video{
+    display:block;
+    width:100%;
+    height:100%;
+    max-width:100%;
+    object-fit:cover;
+    background:var(--line);
+  }
+
+  /* ---------- rates ---------- */
+  .rates{
+    display:flex;flex-direction:column;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:var(--surface);
+    overflow:hidden;
+  }
+  .rate{
+    display:flex;flex-wrap:wrap;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:6px 18px;
+    padding:16px 20px;
+    border-bottom:1px solid var(--line);
+  }
+  .rate:last-child{border-bottom:none;}
+  .rate-name{font-weight:600;font-size:16px;}
+  .rate-name span{display:block;font-weight:400;font-size:14px;color:var(--muted);margin-top:2px;}
+  .rate-price{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:16px;font-weight:500;
+    color:var(--accent);
+    font-variant-numeric:tabular-nums;
+    white-space:nowrap;
+    text-align:right;
+  }
+  .rate-price span{
+    display:block;
+    font-size:13px;font-weight:400;
+    color:var(--muted);
+    margin-top:2px;
+  }
+  .note{font-size:14.5px;color:var(--muted);margin:0;}
+
+  /* ---------- terms ---------- */
+  .terms{
+    margin:0;padding:0;list-style:none;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .terms li{
+    display:grid;
+    grid-template-columns:22px 1fr;
+    gap:12px;
+    font-size:15.5px;
+    color:var(--ink-2);
+  }
+  .terms .mark{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-weight:700;font-size:14px;
+    color:var(--accent);
+    line-height:1.7;
+  }
+  .terms .mark.no{color:var(--muted);}
+
+  /* ---------- contact ---------- */
+  .contact{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:24px;
+    display:flex;flex-direction:column;gap:16px;
+  }
+  .field{
+    display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;
+    padding-bottom:14px;border-bottom:1px solid var(--line);
+  }
+  .field:last-of-type{border-bottom:none;padding-bottom:0;}
+  .field-key{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--muted);min-width:76px;
+  }
+  .field-val{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:15px;font-weight:500;color:var(--ink);
+    word-break:break-all;flex:1 1 auto;
+  }
+  .copy{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:11.5px;font-weight:500;letter-spacing:0.08em;
+    text-transform:uppercase;
+    background:transparent;
+    color:var(--muted);
+    border:1px solid var(--line-strong);
+    border-radius:3px;
+    padding:5px 10px;
+    cursor:pointer;
+    flex:none;
+  }
+  .copy:hover{color:var(--accent);border-color:var(--accent);}
+  .copy:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+
+  .ask{
+    background:var(--accent-wash);
+    border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);
+    border-radius:4px;
+    padding:18px 22px;
+  }
+  .ask p{margin:0 0 10px;font-size:15px;color:var(--ink-2);}
+  .ask ul{margin:0;padding-left:20px;font-size:15px;color:var(--ink-2);display:flex;flex-direction:column;gap:4px;}
+
+  footer{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:12px;letter-spacing:0.06em;
+    color:var(--muted);
+    border-top:1px solid var(--line);
+    padding-top:20px;
+  }
+
+  /* ---------- lightbox ---------- */
+  [hidden]{display:none!important;}
+  .lightbox{
+    position:fixed;
+    inset:0;
+    z-index:50;
+    background:rgba(10,8,9,0.9);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .lightbox video{
+    width:100%;
+    max-width:1100px;
+    max-height:82vh;
+    border-radius:4px;
+    background:#000;
+  }
+  .lightbox-close{
+    position:absolute;
+    top:calc(14px + env(safe-area-inset-top, 0px));
+    right:14px;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:12px;font-weight:500;letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#fff;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.3);
+    border-radius:3px;
+    padding:8px 13px;
+    cursor:pointer;
+  }
+  .lightbox-close:hover{background:rgba(255,255,255,0.22);}
+  .lightbox-close:focus-visible{outline:2px solid #fff;outline-offset:2px;}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important;}
+  }
+</style>
+
+<div class="wrap">
+
+  <!-- ============ HEADER ============ -->
+  <header>
+    <p class="eyebrow">Roblox &middot; Luau &middot; Scripter</p>
+    <h1>Fiesto</h1>
+    <p class="lede">
+      I'm a scripter on Roblox. I've been developing games and systems for a year now.
+      Most of my work so far has been combat, round-based systems and obbies.
+    </p>
+    <!-- EDIT: change this line when you are booked out -->
+    <span class="status"><span class="dot"></span>Available for commissions</span>
+  </header>
+
+  <!-- ============ WHAT I CAN BUILD ============ -->
+  <section>
+    <h2>What I can build</h2>
+    <ul class="skills">
+      <li><span class="tick">&check;</span><span>Modular combat systems</span></li>
+      <li><span class="tick">&check;</span><span>Round systems with game loops</span></li>
+      <li><span class="tick">&check;</span><span>Fully functional obbies</span></li>
+      <li><span class="tick">&check;</span><span>Currency systems with shops</span></li>
+      <li><span class="tick">&check;</span><span>Coin pickup systems</span></li>
+      <li><span class="tick">&check;</span><span>Tools</span></li>
+      <li><span class="tick">&check;</span><span>State systems</span></li>
+      <li><span class="tick">&check;</span><span>Settings menus</span></li>
+      <li><span class="tick">&check;</span><span>SFX and VFX</span></li>
+      <li><span class="tick">&check;</span><span>Data saving</span></li>
+      <li><span class="tick">&check;</span><span>Gamepass and dev product shops</span></li>
+      <li><span class="tick">&check;</span><span>Gift systems for gamepasses</span></li>
+      <li><span class="tick">&check;</span><span>UI scripting and tweening</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ SHOWCASE ============ -->
+  <!-- EDIT: write each description between the two <p> tags.
+       Each card expects an MP4 file in a folder called "clips" next to
+       index.html, with the filename shown in its src="..." below.
+       Delete a whole <article> block if you don't want to show that
+       system yet. -->
+  <section>
+    <h2>Showcase</h2>
+    <div class="showcase">
+
+      <article class="system">
+        <div class="media">
+          <video src="clips/combat.mp4" muted loop autoplay playsinline preload="metadata"></video>
+        </div>
+        <h3>Combat System</h3>
+        <p></p>
+      </article>
+
+      <article class="system">
+        <div class="media">
+          <video src="clips/round.mp4" muted loop autoplay playsinline preload="metadata"></video>
+        </div>
+        <h3>Round System</h3>
+        <p></p>
+      </article>
+
+      <article class="system">
+        <div class="media">
+          <video src="clips/settings.mp4" muted loop autoplay playsinline preload="metadata"></video>
+        </div>
+        <h3>Settings</h3>
+        <p></p>
+      </article>
+
+      <article class="system">
+        <div class="media">
+          <video src="clips/shop.mp4" muted loop autoplay playsinline preload="metadata"></video>
+        </div>
+        <h3>Currency &amp; Shop</h3>
+        <p></p>
+      </article>
+
+      <article class="system">
+        <div class="media">
+          <video src="clips/passes.mp4" muted loop autoplay playsinline preload="metadata"></video>
+        </div>
+        <h3>Gamepasses &amp; Dev Products</h3>
+        <p></p>
+      </article>
+
+      <article class="system">
+        <div class="media">
+          <video src="clips/gift.mp4" muted loop autoplay playsinline preload="metadata"></video>
+        </div>
+        <h3>Gift System</h3>
+        <p></p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ RATES ============ -->
+  <section>
+    <h2>Rates</h2>
+    <div class="rates">
+      <div class="rate">
+        <div class="rate-name">Small task<span>Small bug fix, a tool, SFX, VFX</span></div>
+        <div class="rate-price">$8 &ndash; $20<span>2,500 &ndash; 5,500 R$</span></div>
+      </div>
+      <div class="rate">
+        <div class="rate-name">Medium task<span>Data saving, shop logic, round loop</span></div>
+        <div class="rate-price">$20 &ndash; $45<span>5,500 &ndash; 12,000 R$</span></div>
+      </div>
+      <div class="rate">
+        <div class="rate-name">Large task<span>Combat with multiple moves, full gameplay loop</span></div>
+        <div class="rate-price">from $55<span>from 15,000 R$</span></div>
+      </div>
+    </div>
+    <p class="note">
+      Minimum $8, or 2,500 R$ if you'd rather pay in Robux. PayPal for USD.
+      Quoted per task after we agree on the scope, so you know the price before I start.
+      No revenue share unless your game is already earning.
+    </p>
+  </section>
+
+  <!-- ============ HOW I WORK ============ -->
+  <section>
+    <h2>How I work</h2>
+    <ul class="terms">
+      <li><span class="mark">01</span><span>You describe the task. I come back with a fixed price and a delivery date before any work starts.</span></li>
+      <li><span class="mark">02</span><span>Partial payment up front, the rest on delivery. Full payment up front on small tasks.</span></li>
+      <li><span class="mark">03</span><span>You get the work as a file you import yourself. I don't need access to your group or your account.</span></li>
+      <li><span class="mark">04</span><span>One round of revisions included, plus 7 days of bug fixes on anything I wrote.</span></li>
+      <li><span class="mark">05</span><span>If I'm going to be slower than agreed, you hear it from me first, not after the deadline.</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ NOT INCLUDED ============ -->
+  <section>
+    <h2>Not included</h2>
+    <ul class="terms">
+      <li><span class="mark no">&mdash;</span><span>UI design. I script UI that already exists.</span></li>
+      <li><span class="mark no">&mdash;</span><span>3D modelling, building and animation.</span></li>
+      <li><span class="mark no">&mdash;</span><span>Publishing or deploying into your live game.</span></li>
+      <li><span class="mark no">&mdash;</span><span>Support beyond the 7-day fix window, unless we agree on it separately.</span></li>
+      <li><span class="mark no">&mdash;</span><span>Anything needing your account credentials or access to group funds.</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section>
+    <h2>Get in touch</h2>
+
+    <div class="ask">
+      <p>When you message me, please include:</p>
+      <ul>
+        <li>What your game is</li>
+        <li>What exactly you need scripted</li>
+        <li>Your budget and payment method</li>
+        <li>A deadline, if you have one</li>
+      </ul>
+    </div>
+
+    <div class="contact">
+      <div class="field">
+        <span class="field-key">Discord</span>
+        <span class="field-val" id="v-discord">fiesto_.</span>
+        <button class="copy" type="button" data-target="v-discord">Copy</button>
+      </div>
+      <div class="field">
+        <span class="field-key">Languages</span>
+        <span class="field-val">English &middot; German</span>
+      </div>
+      <p class="note">
+        I'll reply with a price and a date, or tell you straight away if it isn't a fit.
+      </p>
+    </div>
+  </section>
+
+  <footer>Last updated October 2026</footer>
+
+</div>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" type="button" id="lightbox-close">Close</button>
+  <video id="lightbox-video" muted loop playsinline controls></video>
+</div>
+
+<script>
+  function selectText(el) {
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  var box = document.getElementById('lightbox');
+  var boxVideo = document.getElementById('lightbox-video');
+  var closeBtn = document.getElementById('lightbox-close');
+
+  function openBox(src) {
+    boxVideo.setAttribute('src', src);
+    box.hidden = false;
+    var p = boxVideo.play();
+    if (p && p.catch) p.catch(function () {});
+    closeBtn.focus();
+  }
+
+  function closeBox() {
+    box.hidden = true;
+    boxVideo.pause();
+    boxVideo.removeAttribute('src');
+    boxVideo.load();
+  }
+
+  document.querySelectorAll('.media').forEach(function (media) {
+    media.tabIndex = 0;
+    media.setAttribute('role', 'button');
+    media.setAttribute('aria-label', 'Open video larger');
+
+    function open() {
+      var v = media.querySelector('video');
+      var src = v && v.getAttribute('src');
+      if (src) openBox(src);
+    }
+
+    media.addEventListener('click', open);
+    media.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        open();
+      }
+    });
+  });
+
+  box.addEventListener('click', function (e) {
+    if (e.target === box) closeBox();
+  });
+  closeBtn.addEventListener('click', closeBox);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !box.hidden) closeBox();
+  });
+
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.dataset.target);
+      if (!el) return;
+      var done = function () {
+        var old = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = old; }, 1400);
+      };
+      try {
+        navigator.clipboard.writeText(el.textContent.trim()).then(done, function () { selectText(el); });
+      } catch (e) {
+        selectText(el);
+      }
+    });
+  });
+</script>
