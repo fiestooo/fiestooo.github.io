@@ -146,6 +146,12 @@
   .skills .tick{color:var(--accent);font-weight:700;line-height:1.6;}
   @media (max-width:560px){ .skills{grid-template-columns:1fr;} }
 
+  .genre{display:flex;flex-direction:column;gap:16px;}
+  .genre-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px;}
+  .genre-head h3{font-size:22px;font-weight:800;}
+  .genre-head p{margin:0;font-size:14.5px;color:var(--muted);}
+  .genre-head a{color:var(--accent);}
+
   /* ---------- showcase ---------- */
   .showcase{
     display:grid;
@@ -359,7 +365,7 @@
     <h1>Fiesto</h1>
     <p class="lede">
       I'm a scripter on Roblox. I've been developing games and systems for a year now.
-      Most of my work so far has been combat, round-based systems and obbies.
+      My work so far covers simulator-style games, combat systems and round-based games.
     </p>
     <!-- EDIT: change this line when you are booked out -->
     <span class="status"><span class="dot"></span>Available for commissions</span>
@@ -382,68 +388,69 @@
       <li><span class="tick">&check;</span><span>Gamepass and dev product shops</span></li>
       <li><span class="tick">&check;</span><span>Gift systems for gamepasses</span></li>
       <li><span class="tick">&check;</span><span>UI scripting and tweening</span></li>
+      <li><span class="tick">&check;</span><span>Clean, simple UI design (menus, shops, HUD)</span></li>
+      <li><span class="tick">&check;</span><span>Bug fixing with a short written report</span></li>
     </ul>
   </section>
 
   <!-- ============ SHOWCASE ============ -->
-  <!-- EDIT: write each description between the two <p> tags.
-       Each card expects an MP4 file in a folder called "clips" next to
-       index.html, with the filename shown in its src="..." below.
-       Delete a whole <article> block if you don't want to show that
-       system yet. -->
+  <!-- EDIT: one <div class="genre"> block per game type. Clips go in the
+       "clips" folder next to index.html. Combat / Battlegrounds block
+       gets added once the fighting game clips are ready. -->
   <section>
     <h2>Showcase</h2>
-    <div class="showcase">
 
+    <div class="genre">
+      <div class="genre-head">
+        <h3>Casual &amp; Simulator</h3>
+        <p>From my game Coin Chaser</p>
+      </div>
+      <div class="showcase">
       <article class="system">
         <div class="media">
-          <video src="clips/combat.mp4" muted loop autoplay playsinline preload="metadata"></video>
+          <video src="clips/currency.mp4" muted loop autoplay playsinline preload="metadata"></video>
         </div>
-        <h3>Combat System</h3>
-        <p></p>
+        <h3>Currency &amp; Pickups</h3>
+        <p>Collectable coins with pickup effects, sound and a live counter.</p>
       </article>
-
       <article class="system">
         <div class="media">
-          <video src="clips/round.mp4" muted loop autoplay playsinline preload="metadata"></video>
+          <video src="clips/shop.mp4" muted loop autoplay playsinline preload="metadata"></video>
         </div>
-        <h3>Round System</h3>
-        <p></p>
+        <h3>Shop &amp; Upgrades</h3>
+        <p>Upgrade shops with levels, scaling costs and boosts that apply instantly.</p>
       </article>
-
+      <article class="system">
+        <div class="media">
+          <video src="clips/rebirth.mp4" muted loop autoplay playsinline preload="metadata"></video>
+        </div>
+        <h3>Rebirth</h3>
+        <p>Resets progress in exchange for a permanent multiplier.</p>
+      </article>
+      <article class="system">
+        <div class="media">
+          <video src="clips/magnet.mp4" muted loop autoplay playsinline preload="metadata"></video>
+        </div>
+        <h3>Gamepass: Magnet</h3>
+        <p>Gamepass purchase flow; the magnet pulls coins in once it is owned.</p>
+      </article>
       <article class="system">
         <div class="media">
           <video src="clips/settings.mp4" muted loop autoplay playsinline preload="metadata"></video>
         </div>
         <h3>Settings</h3>
-        <p></p>
+        <p>Settings menu with toggles that take effect right away.</p>
       </article>
-
       <article class="system">
         <div class="media">
-          <video src="clips/shop.mp4" muted loop autoplay playsinline preload="metadata"></video>
+          <video src="clips/ui.mp4" muted loop autoplay playsinline preload="metadata"></video>
         </div>
-        <h3>Currency &amp; Shop</h3>
-        <p></p>
+        <h3>UI Design</h3>
+        <p>Designed and scripted UI in one consistent style, with tweened menus.</p>
       </article>
-
-      <article class="system">
-        <div class="media">
-          <video src="clips/passes.mp4" muted loop autoplay playsinline preload="metadata"></video>
-        </div>
-        <h3>Gamepasses &amp; Dev Products</h3>
-        <p></p>
-      </article>
-
-      <article class="system">
-        <div class="media">
-          <video src="clips/gift.mp4" muted loop autoplay playsinline preload="metadata"></video>
-        </div>
-        <h3>Gift System</h3>
-        <p></p>
-      </article>
-
+      </div>
     </div>
+
   </section>
 
   <!-- ============ RATES ============ -->
@@ -465,6 +472,7 @@
     </div>
     <p class="note">
       Minimum $8, or 2,500 R$ if you'd rather pay in Robux. PayPal for USD.
+      Robux prices are what I receive after Roblox's fee.
       Quoted per task after we agree on the scope, so you know the price before I start.
       No revenue share unless your game is already earning.
     </p>
@@ -476,9 +484,10 @@
     <ul class="terms">
       <li><span class="mark">01</span><span>You describe the task. I come back with a fixed price and a delivery date before any work starts.</span></li>
       <li><span class="mark">02</span><span>Partial payment up front, the rest on delivery. Full payment up front on small tasks.</span></li>
-      <li><span class="mark">03</span><span>For new systems, you get the work as a file you import yourself. For fixes in an existing game, I'll need a copy of the place or temporary Team Create access.</span></li>
-      <li><span class="mark">04</span><span>One round of revisions included, plus 7 days of bug fixes on anything I wrote.</span></li>
-      <li><span class="mark">05</span><span>If I'm going to be slower than agreed, you hear it from me first, not after the deadline.</span></li>
+      <li><span class="mark">03</span><span>You get the work as a file you import yourself. I don't need access to your group or your account.</span></li>
+      <li><span class="mark">04</span><span>For bug fixes, you get a short written report: what was wrong, what I changed, and anything else I noticed.</span></li>
+      <li><span class="mark">05</span><span>One round of revisions included, plus 7 days of bug fixes on anything I wrote.</span></li>
+      <li><span class="mark">06</span><span>If I'm going to be slower than agreed, you hear it from me first, not after the deadline.</span></li>
     </ul>
   </section>
 
@@ -486,7 +495,6 @@
   <section>
     <h2>Not included</h2>
     <ul class="terms">
-      <li><span class="mark no">&mdash;</span><span>UI design. I script UI that already exists.</span></li>
       <li><span class="mark no">&mdash;</span><span>3D modelling, building and animation.</span></li>
       <li><span class="mark no">&mdash;</span><span>Publishing or deploying into your live game.</span></li>
       <li><span class="mark no">&mdash;</span><span>Support beyond the 7-day fix window, unless we agree on it separately.</span></li>
@@ -524,7 +532,7 @@
     </div>
   </section>
 
-  <footer>Last updated October 2026</footer>
+  <footer>Last updated November 2026</footer>
 
 </div>
 
